@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Compilador</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><strong>Analisador Léxico - LALG</strong></a>
+
+        <span  class="navbar-text">
+            Vinícius Vedovotto - Compiladores 2020
+            <!-- Button -->
+           <button type="button" class="btn btn-sm btn-outline-success ml-3" data-toggle="modal" data-target="#modalExemplo">
+                Definições
+            </button>
+              
+            <!-- Modal -->
+            <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success" id="exampleModalLabel">Definições do Analisador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-body">
+                    <p>
+                        <h5>1 - O alfabeto (símbolos aceitos):</h5>
+                            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, +, -, *, /, ., (, ) ]<br>
+                    </p>
+                    <p>
+                        <h5>2 - Listagem dos tokens:</h5>
+                            NUM_INT: número inteiro, <br>
+                            NUM_REAL: número real,<br>
+                            OP_SOMA: operador aritmético de soma,<br>
+                            OP_SUB: operador aritmético de subtração,<br>
+                            OP_MULT: operador aritmético de multiplicação,<br>
+                            OP_DIV: operador aritmético de divisão,<br>
+                            ABRE_PAR: abre parênteses,<br>
+                            FECHA_PAR: fecha parênteses<br>
+                        
+                    </p>
+                    <p>
+                        <h5>3 - Especificação dos tokens com definições regulares:</h5>
+                            NUM_INT: [0-9]+,<br>
+                            NUM_REAL: [0-9]+.?[0-9]*,<br>
+                            OP_SOMA: +,<br>
+                            OP_SUB: -,<br>
+                            OP_MULT: *,<br>
+                            OP_DIV: /,<br>
+                            ABRE_PAR: (,<br>
+                            FECHA_PAR: )<br>
+                    </p>
+                    <p>
+                        <strong>Questões consideradas:</strong>
+                        <ul>
+                            <li>Símbolo separador de casas decimais: Ponto('.')</li>
+                            <li>Não usa representação monetária</li>
+                            <li>Aceita espaços</li>
+                            <li>Aceita valores com até no máximo 10 caracteres</li>
+                        </ul>
+                    </p>
+                    <p>
+                        Autômato implementado diretamente em código. <br>
+                    </p>
+                    <hr>
+                    <strong>Aluno:</strong> Vinícius Vedovotto <br>
+                    <strong>Professor:</strong> Celso Olivete Junior <br>
+                    <strong>Disciplina - Curso:</strong> Compiladores/Ciência da Computação <br>
+                    <strong>Universidade:</strong> FCT/UNESP <br>
+                    <hr>
+                    <p style="text-align: center;">
+                        <strong>2020</strong>
+
+                    </p>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+        </span> 
+
+    </nav>
+
+    <br>
+    <div class="container-fluid">
+        
+        <div class="row justify-content-center">
+
+            <div class="col-6" style="width: 18rem;"> 
+                <div class="card" style="height: 85vh;">
+                    <h5 class="card-header"><strong>Código</strong></h5>
+                    <div class="card-body">
+                       
+                        <div class="custom-file mb-2">
+                            <form action="/upload" method="post" enctype="multipart/form-data">
+                                <div class="container row">
+                                    <div class="col-10">
+                                        <input type="file" class="custom-file-input col-10" id="customFile" name="filetoupload" placeholder="teste">
+                                        <label class="custom-file-label" for="customFile"> <%= originalname %>  </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-success ">
+                                            <strong>Analisar</strong>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> 
+                        
+                        <div class="input-group shadow-lg">
+                            <textarea class="form-control border border-secondary" placeholder="Teste" disabled style="height: 100%; width: 100%; min-height: 60vh;">
+                                <%= '\n'+data %> 
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-6" style="width: 18rem;">
+                <div class="card" style="height: 100%; margin-bottom: 20px;">
+                    <h5 class="card-header"><strong>Resultado da análise</strong></h5>
+                    
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">Lexema</th>
+                            <th scope="col">Token</th>
+                            <th scope="col">Linha</th>
+                            <th scope="col">Col Inicial</th>
+                            <th scope="col">Col Final</th>
+                            <th scope="col">Erro</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% if(tokens.length) { %> 
+                                <% tokens.forEach(element => { %>
+                                    <tr>
+                                        <td><%= element.lexema %></td>
+                                        <td><%= element.token %></td>
+                                        <td><%= element.linha %></td>
+                                        <td><%= element.colIni %></td>
+                                        <td><%= element.colFin %></td>
+                                        <td><%= element.erro %> </td>
+                                    </tr>
+                                <% }) %> 
+                            <% } else { %> 
+                                <tr>
+                                    <td><cite>Vazio!</cite></td>  
+                                </tr>
+                            <% } %> 
+     
+                          
+                        </tbody>
+                      </table>
+
+                    <!-- <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <% if(logs.length || tokens.length) { %> 
+                                <% tokens.forEach(element => { %>
+                                    <li class="list-group-item"><%= element.lexema+' → '+element.nome %></li>
+                                <% }) %> 
+                            <% } else { %> 
+                                <li class="list-group-item"><cite>Vazio!</cite></li>  
+                            <% } %> 
+                        </ul>
+
+                    </div> -->
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/scripts.js"></script>
+
+</body>
+</html>
