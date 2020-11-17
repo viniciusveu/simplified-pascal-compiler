@@ -18,9 +18,9 @@ const tipoToken = {
     DIFERENTE: "diferenteQue",
     ATRIBUICAO: "atribuicao",
     IGUAL: "igualA",
-    PALAVRA: 'palavraReservada',
-    IDENTIFICADOR: 'palavraIdentificadora',
-    COMENT: 'comentario',
+    PALAVRA: "palavraReservada",
+    IDENTIFICADOR: "palavraIdentificadora",
+    COMENT: "comentario",
     ERRO: "erro"
 }
 

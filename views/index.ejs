@@ -36,32 +36,59 @@
                     </button>
                 </div>
                 <div class="modal-body text-body">
+                    <h5>Compilador - Pascal Simplificado (LALG): </h5>
                     <p>
                         <h5>1 - O alfabeto (símbolos aceitos):</h5>
-                            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, +, -, *, /, ., (, ) ]<br>
+                            [a-Z, 0-9, '+', '-', '*', '/', '(', ')', ',', ';', ':', '>', '<', '=', '.']<br>
                     </p>
                     <p>
                         <h5>2 - Listagem dos tokens:</h5>
-                            NUM_INT: número inteiro, <br>
-                            NUM_REAL: número real,<br>
-                            OP_SOMA: operador aritmético de soma,<br>
-                            OP_SUB: operador aritmético de subtração,<br>
-                            OP_MULT: operador aritmético de multiplicação,<br>
-                            OP_DIV: operador aritmético de divisão,<br>
-                            ABRE_PAR: abre parênteses,<br>
-                            FECHA_PAR: fecha parênteses<br>
+                        NUM_INT: número inteiro, <br>
+                        NUM_REAL: número real,<br>
+                        OP_SOMA: operador aritmético de soma,<br>
+                        OP_SUB: operador aritmético de subtração,<br>
+                        OP_MULT: operador aritmético de multiplicação,<br>
+                        OP_DIV: operador aritmético de divisão,<br>
+                        ABRE_PAR: abre parênteses,<br>
+                        FECHA_PAR: fecha parênteses,<br>
+                        VIRGULA: vírgula, <br>
+                        PT_VIRG: ponto e virgula, <br>
+                        DOIS_PTS: dois pontos, <br>
+                        MAIOR_QUE: maior que, <br>
+                        MAIOR_IGUAL: maior ou igual que, <br>
+                        MENOR_QUE: menor que, <br>
+                        MENOR_IGUAL: menor ou igual que, <br>
+                        DIFERENTE: diferente de, <br>
+                        ATRIBUICAO: atribuição, <br>
+                        IGUAL: igual a, <br>
+                        PALAVRA: palavra reservada, <br>
+                        IDENTIFICADOR: identificador, <br>
+                        COMENT: comentário <br>
                         
                     </p>
                     <p>
                         <h5>3 - Especificação dos tokens com definições regulares:</h5>
-                            NUM_INT: [0-9]+,<br>
-                            NUM_REAL: [0-9]+.?[0-9]*,<br>
-                            OP_SOMA: +,<br>
-                            OP_SUB: -,<br>
-                            OP_MULT: *,<br>
-                            OP_DIV: /,<br>
-                            ABRE_PAR: (,<br>
-                            FECHA_PAR: )<br>
+                        NUM_INT: [0-9]+ <br>
+                        NUM_REAL: [0-9]+.?[0-9]* <br>
+                        OP_SOMA: + <br>
+                        OP_SUB: - <br>
+                        OP_MULT: * <br>
+                        OP_DIV: / <br>
+                        ABRE_PAR: ( <br>
+                        FECHA_PAR: )<br>
+                        VIRGULA: , <br>
+                        PT_VIRG: ; <br>
+                        DOIS_PTS: : <br>
+                        MAIOR_QUE: > <br>
+                        MAIOR_IGUAL: >= <br>
+                        MENOR_QUE: < <br>
+                        MENOR_IGUAL: <= <br>
+                        DIFERENTE: <> <br>
+                        ATRIBUICAO: := <br>
+                        IGUAL: = <br>
+                        PALAVRA: palavra reservada <br>
+                        IDENTIFICADOR: palavra identificadora <br>
+                        COMENT: {comentário} <br>
                     </p>
                     <p>
                         <strong>Questões consideradas:</strong>
@@ -69,7 +96,7 @@
                             <li>Símbolo separador de casas decimais: Ponto('.')</li>
                             <li>Não usa representação monetária</li>
                             <li>Aceita espaços</li>
-                            <li>Aceita valores com até no máximo 10 caracteres</li>
+                            <li>Aceita valores com até no máximo 15 caracteres</li>
                         </ul>
                     </p>
                     <p>
