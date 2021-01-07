@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,14 +12,15 @@
             background-color: black;
         }
     </style>
-    
-</head>
-<body>
-    
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/"><strong>Analisador Léxico - LALG</strong></a>
 
-        <span  class="navbar-text">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><strong>Compilador - LALG</strong></a>
+
+        <span class="navbar-text">
             Vinícius Vedovotto - Compiladores 2020
             <!-- Button -->
            <button type="button" class="btn btn-sm btn-outline-success ml-3" data-toggle="modal" data-target="#modalExemplo">
@@ -33,13 +35,13 @@
                     <h5 class="modal-title text-success" id="exampleModalLabel">Definições do Analisador</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-body">
-                    <h5>Compilador - Pascal Simplificado (LALG): </h5>
-                    <p>
-                        <h5>1 - O alfabeto (símbolos aceitos):</h5>
-                            [a-Z, 0-9, '+', '-', '*', '/', '(', ')', ',', ';', ':', '>', '<', '=', '.']<br>
+        </button>
+        </div>
+        <div class="modal-body text-body">
+            <h5>Compilador - Pascal Simplificado (LALG): </h5>
+            <p>
+                <h5>1 - O alfabeto (símbolos aceitos):</h5>
+                [a-Z, 0-9, '+', '-', '*', '/', '(', ')', ',', ';', ':', '>', '< ', '=', ' . ']<br>
                     </p>
                     <p>
                         <h5>2 - Listagem dos tokens:</h5>
@@ -93,7 +95,7 @@
                     <p>
                         <strong>Questões consideradas:</strong>
                         <ul>
-                            <li>Símbolo separador de casas decimais: Ponto('.')</li>
+                            <li>Símbolo separador de casas decimais: Ponto('. ')</li>
                             <li>Não usa representação monetária</li>
                             <li>Aceita espaços</li>
                             <li>Aceita valores com até no máximo 15 caracteres</li>
@@ -130,8 +132,8 @@
         
         <div class="row justify-content-center">
 
-            <div class="col-6" style="width: 18rem;"> 
-                <div class="card" style="height: 85vh;">
+            <div class="col-3"> 
+                <div class="card" style="min-height: 90vh;">
                     <h5 class="card-header"><strong>Código</strong></h5>
                     <div class="card-body">
                        
@@ -149,20 +151,19 @@
                                     </div>
                                 </div>
                             </form>
+
                         </div> 
                         
                         <div class="input-group shadow-lg">
-                            <textarea class="form-control border border-secondary" placeholder="Teste" disabled style="height: 100%; width: 100%; min-height: 60vh;">
-                                <%= '\n'+data %> 
-                            </textarea>
+                            <textarea class="form-control border border-secondary" placeholder="Seu código aparecerá aqui. Clique em Browse e depois em Analisar." disabled style="min-height: 75vh;"><%= data %></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-6" style="width: 18rem;">
-                <div class="card" style="height: 100%; margin-bottom: 20px;">
-                    <h5 class="card-header"><strong>Resultado da análise</strong></h5>
+
+            <div class="col-6">
+                <div class="card" style="min-height: 90vh; margin-bottom: 20px;">
+                    <h5 class="card-header"><strong>Resultado da Análise Léxica</strong></h5>
                     
                     <table class="table table-sm">
                         <thead>
@@ -186,7 +187,7 @@
                                         <td><%= element.colFin %></td>
                                         <td><%= element.erro %> </td>
                                     </tr>
-                                <% }) %> 
+                                <% }) %>  
                             <% } else { %> 
                                 <tr>
                                     <td><cite>Vazio!</cite></td>  
@@ -197,20 +198,46 @@
                         </tbody>
                       </table>
 
-                    <!-- <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <% if(logs.length || tokens.length) { %> 
-                                <% tokens.forEach(element => { %>
-                                    <li class="list-group-item"><%= element.lexema+' → '+element.nome %></li>
-                                <% }) %> 
-                            <% } else { %> 
-                                <li class="list-group-item"><cite>Vazio!</cite></li>  
-                            <% } %> 
-                        </ul>
-
-                    </div> -->
                 </div>
             </div>
+
+
+            <div class="col-3">
+                <div class="card" style="min-height: 90vh;">
+                    <h5 class="card-header"><strong>Resultado da Análise Sintática</strong></h5>
+                    
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">Token</th>
+                            <th scope="col">Log</th>
+                            <th scope="col">Linha</th>
+                            <th scope="col">Col Inicial</th>
+                            <th scope="col">Col Final</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% if(logs.length) { %> 
+                                <% logs.forEach(log => { %>
+                                    <tr>
+                                        <td><%= log.token.lexema %></td>
+                                        <td><%= log.err %></td>
+                                        <td><%= log.token.linha %></td>
+                                        <td><%= log.token.colIni %></td>
+                                        <td><%= log.token.colFin %></td>
+                                    </tr>
+                                <% }) %>  
+                            <% } else { %> 
+                                <tr>
+                                    <td><cite>Vazio!</cite></td>  
+                                </tr>
+                            <% } %> 
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            
             
         </div>
 
