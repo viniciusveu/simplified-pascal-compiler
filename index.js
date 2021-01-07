@@ -1,12 +1,11 @@
 const express = require('express')
 const fs = require('fs')
-const analizadorLexico = require('./analisadorLexico')
-
+const { analisadorLexico } = require('./analisadorLexico')
+const analisadorSintatico = require('./analisadorSintatico')
+const path = './uploads/'
 
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
-
-let datas = []
 
 const app = express()
 
@@ -18,23 +17,35 @@ app.use(express.static('public'))
 
 
 app.get('/', (req, res) => {
-    res.render("index", { data: ['Seu código aparecerá aqui'], logs: [], tokens: [], originalname: 'Carregar arquivo' })
+    res.render("index", { data: [], logs: [], tokens: [], originalname: 'Carregar arquivo' })
 })
 
 app.post('/upload', upload.single("filetoupload"), (req, res) => {
-    if(req.file == undefined) return res.send({ "ERRO": "Você não carregou um arquivo. :( " })
+
+    if (req.file == undefined) return res.send({ "ERRO": "Você não carregou um arquivo. :( " })
     const { filename, originalname } = req.file
     console.log(originalname)
+    let datas = []
 
-    fs.readFile('./uploads/'+filename, 'utf-8', (err, data) => {
-        if(err) throw err 
-        datas = Array.from(data)
-        const logs = []
-        const tokens = []
-        analizadorLexico(datas, logs, tokens)
+    fs.readFile(path + filename, 'utf-8', (err, data) => {
+        if (err) throw err
 
-        console.log({data, logs, tokens})
-        return res.render("index", {data, logs, tokens, originalname})
+        //datas = Array.from(data)
+        datas = (Array.from(data)).slice()
+        let tokens = []
+        let linhas = []
+        let logs = []
+
+        analisadorLexico(datas, tokens, linhas)
+        analisadorSintatico(tokens, logs)
+
+        try {
+            fs.unlinkSync(path + filename);
+            console.log('successfully deleted ' + originalname);
+        } catch (err) { console.error(err) }
+
+
+        return res.render("index", { data: linhas.join(''), logs, tokens, originalname })
     })
 })
 
