@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/2d968264-4e62-4cf3-a271-8409f646c935/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/analisadorlexico",
+    "appService.deploySubpath": "."
+}
