@@ -22,7 +22,13 @@ function programa(tokens, logs) {
     if (tokens[i_token].token == tipoToken.IDENTIFICADOR && tokens[i_token + 1].lexema == ';') {
         i_token = i_token + 2
         bloco(tokens, logs)
-        if (tokens[i_token].lexema == '.') console.log("Analise Sintática finalizada sem erros.")
+        if (tokens[i_token].lexema == '.') {
+            console.log("Analise Sintática finalizada sem erros.")
+            logs.push({
+                tokens: tokens[i_token],
+                err: null
+            })
+        }
         else erro(tokens[i_token], logs, codErros[8])
     } else {
         console.log("Um programa precisa iniciar com a palavra program seguido de um identificardor e depois ;\n" + tokens[i_token].lexema, i_token)
@@ -40,7 +46,6 @@ function bloco(tokens, logs) {
         console.error("ERRO: Erro na sintaxe do bloco: " + tokens[i_token].lexema)
         erro(tokens[i_token], logs, codErros[3])
     }
-
 }
 
 function parteDeclarVar(tokens, logs) {
@@ -256,7 +261,7 @@ function analisadorSintatico(tokens_lex, logs) {
     tokens_lex.forEach(element => {
         if (element.token != tipoToken.COMENT) tokens.push(element)
     })
-    console.log(tokens_lex)
+    //console.log(tokens_lex)
     i_token = 1
     if (tokens_lex[0].lexema === "program") programa(tokens, logs)
     else {

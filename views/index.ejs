@@ -207,7 +207,7 @@
                     <h5 class="card-header"><strong>Resultado da Análise Sintática</strong></h5>
                     
                     <table class="table table-sm">
-                        <thead>
+                        <!-- <thead>
                           <tr>
                             <th scope="col">Token</th>
                             <th scope="col">Log</th>
@@ -216,17 +216,18 @@
                             <th scope="col">Col Final</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody> -->
                             <% if(logs.length) { %> 
-                                <% logs.forEach(log => { %>
-                                    <tr>
-                                        <td><%= log.token.lexema %></td>
-                                        <td><%= log.err %></td>
-                                        <td><%= log.token.linha %></td>
-                                        <td><%= log.token.colIni %></td>
-                                        <td><%= log.token.colFin %></td>
-                                    </tr>
-                                <% }) %>  
+                                <% if(logs[0].err == null) { %>
+                                    <div class="alert alert-success" role="alert">
+                                        Compilado com sucesso!
+                                    </div>
+                                <% } else { %>
+                                    <div class="alert alert-danger" role="alert">
+                                        Erro na análise sintática!
+                                    </div>
+                                    <!-- buffer.txt -->
+                                <% } %>
                             <% } else { %> 
                                 <tr>
                                     <td><cite>Vazio!</cite></td>  
@@ -251,3 +252,4 @@
 
 </body>
 </html>
+
