@@ -28,8 +28,10 @@ function programa(tokens, logs) {
                 tokens: tokens[i_token],
                 err: null
             })
+        } else {
+            erro(tokens[i_token], logs, codErros[8])
+            return
         }
-        else erro(tokens[i_token], logs, codErros[8])
     } else {
         console.log("Um programa precisa iniciar com a palavra program seguido de um identificardor e depois ;\n" + tokens[i_token].lexema, i_token)
         erro(tokens[i_token], logs, codErros[1])
@@ -45,6 +47,7 @@ function bloco(tokens, logs) {
     else {
         console.error("ERRO: Erro na sintaxe do bloco: " + tokens[i_token].lexema)
         erro(tokens[i_token], logs, codErros[3])
+        return
     }
 }
 
@@ -71,6 +74,7 @@ function parteDeclarVar(tokens, logs) {
                 console.error("ERRO: Esperava um identificador: " + tokens[i_token].lexema)
                 erro(tokens[i_token], logs, codErros[1])
                 i_token++
+                return
             }
         }
     } else {
@@ -159,6 +163,7 @@ function comandoComposto(tokens, logs) {
     } else {
         console.error("ERRO: Esperava palavra reservada end ou ;")
         erro(tokens[i_token], logs, codErros[6])
+        return
     }
 }
 
@@ -259,14 +264,15 @@ function analisadorSintatico(tokens_lex, logs) {
     let tokens = []
 
     tokens_lex.forEach(element => {
-        if (element.token != tipoToken.COMENT) tokens.push(element)
-    })
-    //console.log(tokens_lex)
+            if (element.token != tipoToken.COMENT) tokens.push(element)
+        })
+        //console.log(tokens_lex)
     i_token = 1
     if (tokens_lex[0].lexema === "program") programa(tokens, logs)
     else {
         console.error("Programa principal não encontrado!")
         erro(tokens[i_token], logs, codErros[0])
+        return
     }
 }
 

@@ -11,6 +11,11 @@
         body {
             background-color: black;
         }
+        
+        .scroll {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
     </style>
 
 </head>
@@ -21,7 +26,7 @@
         <a class="navbar-brand" href="/"><strong>Compilador - LALG</strong></a>
 
         <span class="navbar-text">
-            Vinícius Vedovotto - Compiladores 2020
+            Vinícius, Roni - Compiladores 2020
             <!-- Button -->
            <button type="button" class="btn btn-sm btn-outline-success ml-3" data-toggle="modal" data-target="#modalExemplo">
                 Definições
@@ -105,7 +110,8 @@
                         Autômato implementado diretamente em código. <br>
                     </p>
                     <hr>
-                    <strong>Aluno:</strong> Vinícius Vedovotto <br>
+                    <strong>Alunos:</strong><br>
+                     Vinícius Vedovotto <br> Roni dos Santos <br>
                     <strong>Professor:</strong> Celso Olivete Junior <br>
                     <strong>Disciplina - Curso:</strong> Compiladores/Ciência da Computação <br>
                     <strong>Universidade:</strong> FCT/UNESP <br>
@@ -161,7 +167,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 scroll">
                 <div class="card" style="min-height: 90vh; margin-bottom: 20px;">
                     <h5 class="card-header"><strong>Resultado da Análise Léxica</strong></h5>
                     
@@ -204,7 +210,7 @@
 
             <div class="col-3">
                 <div class="card" style="min-height: 90vh;">
-                    <h5 class="card-header"><strong>Resultado da Análise Sintática</strong></h5>
+                    <h5 class="card-header"><strong>Resultados da Análise</strong></h5>
                     
                     <table class="table table-sm">
                         <!-- <thead>
@@ -224,9 +230,15 @@
                                     </div>
                                 <% } else { %>
                                     <div class="alert alert-danger" role="alert">
-                                        Erro na análise sintática!
+                                        Erro na compilação!
                                     </div>
-                                    <!-- buffer.txt -->
+                                    <% logs.forEach(element => { %>
+                                        <tr>
+                                            <td><%= element.token.lexema %></td>
+
+                                            <td><%= element.err %></td>
+                                        </tr>
+                                    <% }) %>
                                 <% } %>
                             <% } else { %> 
                                 <tr>
@@ -252,4 +264,3 @@
 
 </body>
 </html>
-

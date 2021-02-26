@@ -1,9 +1,0 @@
-<% logs.forEach(log => { %>
-                                        <tr>
-                                            <td><%= log.token.lexema %></td>
-                                            <td><%= log.err %></td>
-                                            <td><%= log.token.linha %></td>
-                                            <td><%= log.token.colIni %></td>
-                                            <td><%= log.token.colFin %></td>
-                                        </tr>
-                                    <% }) %>

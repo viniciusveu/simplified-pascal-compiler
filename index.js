@@ -15,11 +15,12 @@ app.set('view engine', 'ejs')
 //Static
 app.use(express.static('public'))
 
-
+//endpoint principal
 app.get('/', (req, res) => {
     res.render("index", { data: [], logs: [], tokens: [], originalname: 'Carregar arquivo' })
 })
 
+//endpoint de compilação
 app.post('/upload', upload.single("filetoupload"), (req, res) => {
 
     if (req.file == undefined) return res.send({ "ERRO": "Você não carregou um arquivo. :( " })
@@ -49,6 +50,7 @@ app.post('/upload', upload.single("filetoupload"), (req, res) => {
     })
 })
 
+//Rodando a aplicação na porta 8080
 app.listen(8080, () => {
     console.log("Seu app está rodando 🚀")
 })
