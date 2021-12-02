@@ -6,4 +6,4 @@ Compilador para Pascal Simplificado
  - Análise Sintática
  - Análise Semântica
 
-Pode ser implementado uma fase de otimização e, depois, de conversão para Assembly.
+Ainda pode ser implementado uma fase de otimização e, depois, de conversão para Assembly para tornar completo o processo de compilação.
