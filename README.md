@@ -1,9 +1,26 @@
-# Compilador - Pascal Simplificado
+# Simplified Pascal Compiler
 
-Trabalho Prático da disciplina de Compiladores, Prof. Celso - FCT/UNESP
-Compilador para Pascal Simplificado
- - Análise Léxica
- - Análise Sintática
- - Análise Semântica
+This project is a practical assignment for the Compilers course under the guidance of Prof. Celso at FCT/UNESP. The compiler handles Simplified Pascal and includes the following phases:
 
-Ainda pode ser implementado uma fase de otimização e, depois, de conversão para Assembly para tornar completo o processo de compilação.
+- Lexical Analysis
+- Syntax Analysis
+- Semantic Analysis
+
+### Future Enhancements
+
+- Optimization Phase
+- Assembly Conversion
+
+These potential future developments aim to enhance the completeness of the compilation process.
+
+## Usage
+
+- run
+  `$node index.js` 
+
+## Contributing
+
+Feel free to contribute here :D
+
+
+
